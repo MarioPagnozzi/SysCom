@@ -1,0 +1,577 @@
+﻿<?xml version="1.0"?>
+<doc>
+<assembly>
+<name>
+IniFileIO
+</name>
+</assembly>
+<members>
+<member name="T:IniFileIO.My.Resources.Resources">
+<summary>
+  A strongly-typed resource class, for looking up localized strings, etc.
+</summary>
+</member>
+<member name="P:IniFileIO.My.Resources.Resources.ResourceManager">
+<summary>
+  Returns the cached ResourceManager instance used by this class.
+</summary>
+</member>
+<member name="P:IniFileIO.My.Resources.Resources.Culture">
+<summary>
+  Overrides the current thread's CurrentUICulture property for all
+  resource lookups using this strongly typed resource class.
+</summary>
+</member>
+<member name="T:IniFileIO.IniFile">
+ <summary>
+ Library for handling reading and manipulation of Ini files.
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="F:IniFileIO.IniFile._sections">
+ <summary>
+ Internal list of <see cref="T:IniFileIO.IniFile.Section"/>s in the file.
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="F:IniFileIO.IniFile._nameWhitespaceLiteral">
+ <summary>
+ Specifies whether the key name portion of the key is whitespace sensitive.
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="F:IniFileIO.IniFile._valueWhitespaceLiteral">
+ <summary>
+ Specifies whether the value portion of the key is whitespace sensitive.
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="F:IniFileIO.IniFile.COMMENT">
+ <summary>
+ Token at the beginning of a line which denotes a comment. (';' character.)
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="F:IniFileIO.IniFile.SECTION_BEGIN">
+ <summary>
+ Token at the beginning of a line which denotes a <see cref="T:IniFileIO.IniFile.Section"/> name start. ('[' character.)
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="F:IniFileIO.IniFile.SECTION_END">
+ <summary>
+ Token at the end of a line which denotes a <see cref="T:IniFileIO.IniFile.Section"/> name end. (']' character.)
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="F:IniFileIO.IniFile.KEY_VALUE_SEPARATOR">
+ <summary>
+ Token within a <see cref="T:IniFileIO.IniFile.Key"/> which defines the separation of the <see cref="F:IniFileIO.IniFile.Key.Name"/> and <see cref="F:IniFileIO.IniFile.Key.Value"/>. ('=' character.).
+ Only the first token encountered in a line is processed (so the <see cref="F:IniFileIO.IniFile.Key.Value"/> can contain this token in its text).
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="T:IniFileIO.IniFile.Section">
+ <summary>
+ Describes an Ini file section.
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="F:IniFileIO.IniFile.Section.Name">
+ <summary>
+ Section name defined between the <see cref="F:IniFileIO.IniFile.SECTION_BEGIN"/> and <see cref="F:IniFileIO.IniFile.SECTION_END"/> tokens.
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="F:IniFileIO.IniFile.Section.Comments">
+ <summary>
+ Text after the <see cref="F:IniFileIO.IniFile.COMMENT"/> token appearing immediately above the section name.
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="F:IniFileIO.IniFile.Section.Order">
+ <summary>
+ Sequential order in the file.
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="F:IniFileIO.IniFile.Section.Keys">
+ <summary>
+ <see cref="T:IniFileIO.IniFile.Key"/> data.
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="T:IniFileIO.IniFile.Key">
+ <summary>
+ Describes an Ini file key.
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="F:IniFileIO.IniFile.Key.Name">
+ <summary>
+ Key name.
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="F:IniFileIO.IniFile.Key.Value">
+ <summary>
+ Text appearing after the <see cref="F:IniFileIO.IniFile.KEY_VALUE_SEPARATOR"/>.
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="F:IniFileIO.IniFile.Key.Comments">
+ <summary>
+ Text after the <see cref="F:IniFileIO.IniFile.COMMENT"/> token appearing immediately above the key.
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="F:IniFileIO.IniFile.Key.Order">
+ <summary>
+ Sequential order in the containing <see cref="T:IniFileIO.IniFile.Section"/>.
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="M:IniFileIO.IniFile.#ctor(System.String,System.Boolean,System.Boolean)">
+ <summary>
+ Creates a new object with the read/write path set by <paramref name="fileName"/>.
+ </summary>
+ <param name="fileName">Target file name which will be read on instantiation and written to on save.
+ This file does not need to exist at instantiation time.</param>
+ <param name="keyNameWhitespaceLiteral">Sets the <see cref="P:IniFileIO.IniFile.KeyNameWhitespaceLiteral"/> property.</param>
+ <param name="keyValueWhitespaceLiteral">Sets the <see cref="P:IniFileIO.IniFile.KeyValueWhitespaceLiteral"/> property.</param>
+ <remarks></remarks>
+</member>
+<member name="M:IniFileIO.IniFile.GetOutputString(System.Boolean)">
+ <summary>
+ Returns the current object content as a single string.
+ </summary>
+ <param name="preserveOrders">Determines if the section and key order settings should be honored.
+ On large ini files, this may incur a performance hit.</param>
+ <returns>String containing the entire Ini contents.</returns>
+ <remarks>The output of this function is the same as what is written in <see cref="M:IniFileIO.IniFile.SaveFile(System.Boolean,System.Boolean)"/>.</remarks>
+</member>
+<member name="M:IniFileIO.IniFile.GetOutputString(System.Collections.Generic.List{IniFileIO.IniFile.Section},System.Boolean,System.Boolean)">
+ <summary>
+ Helper method which generates the output content.
+ </summary>
+ <param name="sections">Sections to process for writing.</param>
+ <param name="preserveSectionOrders">Determines if the section order settings should be honored.</param>
+ <param name="preserveKeyOrders">Determines if the key order settings should be honored.</param>
+ <remarks></remarks>
+</member>
+<member name="M:IniFileIO.IniFile.ReadFile">
+ <summary>
+ Reads the current contents of <see cref="P:IniFileIO.IniFile.FileName"/> into the object.
+ </summary>
+ <remarks>
+ <para>Regarding comments and association with <see cref="T:IniFileIO.IniFile.Section"/>s or <see cref="T:IniFileIO.IniFile.Key"/>s:</para>
+ <para>All comments appearing immediately above a section (regardless of whitespace) will be associated with the respective section.
+ The same rule applies for <see cref="T:IniFileIO.IniFile.Key"/>s as well.</para>
+ <para>
+ The one exception is when comments appear at the end of a file where there is no section or key below it to assign to.
+ When this happens, a blank <see cref="T:IniFileIO.IniFile.Key"/> is generated with an empty <see cref="F:IniFileIO.IniFile.Key.Name"/> and <see cref="F:IniFileIO.IniFile.Key.Value"/> property, but will have the <see cref="F:IniFileIO.IniFile.Key.Comments"/> property containing the comments.</para>
+ <para>To avoid pulling this "placeholder" key, use the <see cref="M:IniFileIO.IniFile.GetAllKeysWithAName(System.String)"/> method.</para>
+ </remarks>
+</member>
+<member name="M:IniFileIO.IniFile.SaveFile(System.Boolean,System.Boolean)">
+ <summary>
+ Writes the current object content to <see cref="P:IniFileIO.IniFile.FileName"/>.
+ </summary>
+ <param name="preserveOrders">Determines if the section and key order settings should be honored.
+ On large ini files, this may incur a performance hit.</param>
+ <param name="reloadAfterSave">Reloads the ini file after the save completes.
+ This action essentially rebuilds the section and key ordering according to any changes.</param>
+ <exception cref="T:System.IO.FileNotFoundException">Thrown when the <see cref="P:IniFileIO.IniFile.FileName"/> property is empty.</exception>
+</member>
+<member name="P:IniFileIO.IniFile.FileName">
+ <summary>
+ The file path where the object will be read from and written to.
+ </summary>
+ <value>New full file path location.</value>
+ <returns>Full file path and name of the current object.</returns>
+ <remarks></remarks>
+</member>
+<member name="P:IniFileIO.IniFile.Sections">
+ <summary>
+ Raw section data stored by the object.
+ </summary>
+ <returns>Section data as stored internally.</returns>
+</member>
+<member name="P:IniFileIO.IniFile.KeyNameWhitespaceLiteral">
+ <summary>
+ Specifies if the parser includes leading and trailing whitespaces from the source in the <see cref="F:IniFileIO.IniFile.Key.Name"/> property.
+ </summary>
+ <returns>Boolean indicating leading and trailing whitespace sensitivity.</returns>
+ <remarks>This property only applies to the reading of the ini file.
+ It does not modify the output format.</remarks>
+</member>
+<member name="P:IniFileIO.IniFile.KeyValueWhitespaceLiteral">
+ <summary>
+ Specifies if the parser includes leading and trailing whitespaces from the source in the <see cref="F:IniFileIO.IniFile.Key.Value"/> property.
+ </summary>
+ <returns>Boolean indicating leading and trailing whitespace sensitivity.</returns>
+ <remarks>This property only applies to the reading of the ini file.
+ It does not modify the output format.</remarks>
+</member>
+<member name="M:IniFileIO.IniFile.GetAllKeysWithAName(System.String)">
+ <summary>
+ Returns the all the keys within <paramref name="sectionName"/> which have a non-empty <see cref="F:IniFileIO.IniFile.Key.Name"/>.
+ </summary>
+ <param name="sectionName">Parent section to search.</param>
+ <returns>Keys within the provided section which have a non-empty <see cref="F:IniFileIO.IniFile.Key.Name"/> property.</returns>
+</member>
+<member name="M:IniFileIO.IniFile.GetAllKeysWithAValue(System.String,System.String)">
+ <summary>
+ Returns the all the keys matching <paramref name="keyName"/> in the specified <paramref name="sectionName"/> which have a non-empty <see cref="F:IniFileIO.IniFile.Key.Value"/>.
+ </summary>
+ <param name="sectionName">Parent section to search.</param>
+ <param name="keyName">If provided, only the keys matching the specified value are returned.
+ If not provided, all keys in the section are returned.</param>
+ <returns>Keys within the provided section which have a non-empty <see cref="F:IniFileIO.IniFile.Key.Value"/> property.</returns>
+</member>
+<member name="M:IniFileIO.IniFile.GetAllKeys(System.String,System.String)">
+ <summary>
+ Returns the all the keys matching <paramref name="keyName"/> in the specified <paramref name="sectionName"/>.
+ </summary>
+ <param name="sectionName">Parent section to search.</param>
+ <param name="keyName">If provided, only the keys matching the specified value are returned.
+ If not provided, all keys in the section are returned.</param>
+ <returns>Key data within the provided section.</returns>
+</member>
+<member name="M:IniFileIO.IniFile.GetAllSections(System.String)">
+ <summary>
+ Returns the all the sections with the specified <paramref name="name"/> in the object.
+ </summary>
+ <param name="name">If provided, only the sections matching the specified value are returned.
+ If not provided, all sections are returned.</param>
+ <returns>Section data.</returns>
+</member>
+<member name="M:IniFileIO.IniFile.GetKey(System.String,System.String)">
+ <summary>
+ Returns the full key within the specified <paramref name="sectionName"/>. If the key does not exist, an empty <see cref="T:IniFileIO.IniFile.Key"/> is returned.
+ </summary>
+ <param name="sectionName">Parent section to search.</param>
+ <param name="keyName">Name of the target key.</param>
+ <returns>Entire key of the first occurance of <paramref name="keyName"/> within <paramref name="sectionName"/>.</returns>
+ <remarks>In the event of multiple <paramref name="keyName"/>s within <paramref name="sectionName"/>, only the first occurrance is returned.</remarks>
+</member>
+<member name="M:IniFileIO.IniFile.GetKeyComments(System.String,System.String)">
+ <summary>
+ Returns the comments of <paramref name="keyName"/> within the specified <paramref name="sectionName"/>.
+ </summary>
+ <param name="sectionName">Parent section to search.</param>
+ <param name="keyName">Name of the target key.</param>
+ <returns>Comments of the first occurance of the <paramref name="keyName"/>s within <paramref name="sectionName"/>.</returns>
+ <remarks>In the event of multiple <paramref name="keyName"/>s within <paramref name="sectionName"/>, only the comments of the first occurrance is returned.</remarks>
+</member>
+<member name="M:IniFileIO.IniFile.GetKeyOrder(System.String,System.String)">
+ <summary>
+ Gets the order of <paramref name="keyName"/> in the specified <paramref name="sectionName"/>.
+ </summary>
+ <param name="sectionName">Parent section to search.</param>
+ <param name="keyName">Name of the target key.</param>
+ <returns>Order of the first occurance of the <paramref name="keyName"/>s within <paramref name="sectionName"/>.</returns>
+ <remarks>In the event of multiple <paramref name="keyName"/>s within <paramref name="sectionName"/>, only the order of the first occurrance is returned.</remarks>
+</member>
+<member name="M:IniFileIO.IniFile.GetKeyValue(System.String,System.String,System.String)">
+ <summary>
+ Gets the value of <paramref name="keyName"/> in the specified <paramref name="sectionName"/>.
+ </summary>
+ <param name="sectionName">Parent section to search.</param>
+ <param name="keyName">Name of the target key.</param>
+ <param name="defaultValue">The value returned in the event the key does not exist.</param>
+ <returns>Value of the first occurance of the <paramref name="keyName"/>s within <paramref name="sectionName"/>.</returns>
+ <remarks>In the event of multiple <paramref name="keyName"/>s within <paramref name="sectionName"/>, only the value of the first occurrance is returned.</remarks>
+</member>
+<member name="M:IniFileIO.IniFile.GetSection(System.String)">
+ <summary>
+ Returns the section with the specified <paramref name="name"/>. If the section does not exist, an empty <see cref="T:IniFileIO.IniFile.Section"/> is returned.
+ </summary>
+ <param name="name">Section name to get.</param>
+ <returns>Entire section of the first occurance of the section with the specified <paramref name="name"/>.</returns>
+ <remarks>In the event of multiple sections with the specified <paramref name="name"/>, only the first occurrance is returned.</remarks>
+</member>
+<member name="M:IniFileIO.IniFile.GetSectionComments(System.String)">
+ <summary>
+ Returns the comments of the section with the specified <paramref name="name"/>.
+ </summary>
+ <param name="name">Name of the target section.</param>
+ <returns>Comments of the first occurance of the section with the specified <paramref name="name"/>.</returns>
+ <remarks>In the event of multiple sections with the specified <paramref name="name"/>, only the comments of the first occurrance is returned.</remarks>
+</member>
+<member name="M:IniFileIO.IniFile.GetSectionOrder(System.String)">
+ <summary>
+ Returns the order of the section with the specified <paramref name="name"/>.
+ </summary>
+ <param name="name">Name of the target section.</param>
+ <returns>Order of the first occurance of the section with the specified <paramref name="name"/>.</returns>
+ <remarks>In the event of multiple sections with the specified <paramref name="name"/>, only the order of the first occurrance is returned.</remarks>
+</member>
+<member name="M:IniFileIO.IniFile.GetSectionKeys(System.String)">
+ <summary>
+ Returns the all the keys in the section with the specified <paramref name="name"/>.
+ </summary>
+ <param name="name">Name of the target section.</param>
+ <returns>Keys of the first occurance of the section with the specified <paramref name="name"/>.</returns>
+ <remarks>Alternate way to call <see cref="M:IniFileIO.IniFile.GetAllKeys(System.String,System.String)"/>.</remarks>
+</member>
+<member name="M:IniFileIO.IniFile.KeyNameCount(System.String,System.String)">
+ <summary>
+ Returns the count of keys with the name <paramref name="keyName"/> appearing in <paramref name="sectionName"/>.
+ </summary>
+ <param name="sectionName">Parent section to search.</param>
+ <param name="keyName">Target key name to count.</param>
+ <returns>Number of times <paramref name="keyName"/> appears in the first occurrance of section <paramref name="sectionName"/>.</returns>
+ <remarks>In the event of multiple sections named <paramref name="sectionName"/>, only the first occurance is searched.</remarks>
+</member>
+<member name="M:IniFileIO.IniFile.KeyNameExists(System.String,System.String)">
+ <summary>
+ Returns whether or not a key with the name <paramref name="keyName"/> exists in <paramref name="sectionName"/>.
+ </summary>
+ <param name="sectionName">Parent section to search.</param>
+ <param name="keyName">Target key name to find.</param>
+ <returns>Whether a key with the specified <paramref name="keyName"/> exists within <paramref name="sectionName"/>.</returns>
+</member>
+<member name="M:IniFileIO.IniFile.SectionNameCount(System.String)">
+ <summary>
+ Returns the count of sections with the specified <paramref name="name"/>.
+ </summary>
+ <param name="name">Target section name to count.</param>
+ <returns>Number of sections with the specified <paramref name="name"/>.</returns>
+</member>
+<member name="M:IniFileIO.IniFile.SectionNameExists(System.String)">
+ <summary>
+ Returns whether or not a section with the specified <paramref name="name"/> exists.
+ </summary>
+ <param name="name">Target section name to find.</param>
+ <returns>Whether a section with the specified <paramref name="name"/> exists.</returns>
+</member>
+<member name="M:IniFileIO.IniFile.ToDictionary">
+ <summary>
+ Returns a dictionary lookup by <see cref="F:IniFileIO.IniFile.Section.Name"/> for the currently loaded <see cref="T:IniFileIO.IniFile.Section"/>s.
+ The inner dictionary lookup is by <see cref="F:IniFileIO.IniFile.Key.Name"/> for each <see cref="T:IniFileIO.IniFile.Section"/>'s <see cref="F:IniFileIO.IniFile.Section.Keys"/>.
+ <para>This method does not support multiple <see cref="T:IniFileIO.IniFile.Section"/>s with the same <see cref="F:IniFileIO.IniFile.Section.Name"/> value nor does it support a single <see cref="T:IniFileIO.IniFile.Section"/> which has multiple <see cref="T:IniFileIO.IniFile.Key"/>s with the same <see cref="F:IniFileIO.IniFile.Key.Name"/> value.
+ An exception is thrown when this is encountered.</para>
+ </summary>
+ <returns>A dictionary lookup with each <see cref="T:IniFileIO.IniFile.Section"/>'s <see cref="F:IniFileIO.IniFile.Section.Name"/> as the <c>Key</c> and <see cref="M:IniFileIO.IniFile.SectionToDictionary(IniFileIO.IniFile.Section)"/> as the <c>Value</c>.</returns>
+ <exception cref="T:System.ArgumentException">Thrown when a duplicate key is attempted to be added to the dictionary.</exception>
+ <seealso cref="M:IniFileIO.IniFile.ToKeyValuePair"/>
+</member>
+<member name="M:IniFileIO.IniFile.ToKeyValuePair">
+ <summary>
+ Returns an array of key value pairs by <see cref="F:IniFileIO.IniFile.Section.Name"/> for the currently loaded <see cref="T:IniFileIO.IniFile.Section"/>s.
+ The inner array of key value pairs is by <see cref="T:IniFileIO.IniFile.Key"/> <see cref="F:IniFileIO.IniFile.Key.Name"/> for each <see cref="T:IniFileIO.IniFile.Section"/>.
+ <para>This method supports multiple <see cref="T:IniFileIO.IniFile.Section"/>s with the same <see cref="F:IniFileIO.IniFile.Section.Name"/> value as well as a single <see cref="T:IniFileIO.IniFile.Section"/> which has multiple <see cref="T:IniFileIO.IniFile.Key"/>s with the same <see cref="F:IniFileIO.IniFile.Key.Name"/> value.</para>
+ </summary>
+ <returns>An array of key value pairs with each <see cref="T:IniFileIO.IniFile.Section"/>'s <see cref="F:IniFileIO.IniFile.Section.Name"/> as the <c>Key</c> and <see cref="M:IniFileIO.IniFile.SectionToKeyValuePair(IniFileIO.IniFile.Section)"/> as the <c>Value</c>.</returns>
+ <seealso cref="M:IniFileIO.IniFile.ToDictionary"/>
+</member>
+<member name="M:IniFileIO.IniFile.AddKey(System.String,System.String,System.String,System.String,System.Int32)">
+ <summary>
+ Creates a new <see cref="T:IniFileIO.IniFile.Key"/> with the passed in values and adds it to the specified <paramref name="sectionName"/>.
+ </summary>
+ <param name="sectionName">Parent section.</param>
+ <param name="keyName">Name of the new key.</param>
+ <param name="value">Value of the new key.</param>
+ <param name="comments">Comments for the new key.</param>
+ <param name="order">Order of the new key respective to the existing keys in the specified <paramref name="sectionName"/>.</param>
+ <returns>Whether or not the resulting <see cref="T:IniFileIO.IniFile.Key"/> was successfully added.</returns>
+</member>
+<member name="M:IniFileIO.IniFile.AddKey(System.String,IniFileIO.IniFile.Key)">
+ <summary>
+ Adds the <paramref name="key"/> to the specified <paramref name="sectionName"/>.
+ </summary>
+ <param name="sectionName">Parent section.</param>
+ <param name="key">Full <see cref="T:IniFileIO.IniFile.Key"/> to be added.</param>
+ <returns>Whether or not the <paramref name="key"/> was successfully added.</returns>
+</member>
+<member name="M:IniFileIO.IniFile.AddSection(System.String,System.String,System.Int32)">
+ <summary>
+ Creates a new <see cref="T:IniFileIO.IniFile.Section"/> with the passed in values.
+ </summary>
+ <param name="name">Name of the new section.</param>
+ <param name="comments">Comments for the new section.</param>
+ <param name="order">Order of the new section respective to the existing sections.</param>
+ <returns>Whether or not the resulting <see cref="T:IniFileIO.IniFile.Section"/> was successfully added.</returns>
+</member>
+<member name="M:IniFileIO.IniFile.AddSection(IniFileIO.IniFile.Section)">
+ <summary>
+ Adds the <paramref name="section"/> to the object.
+ </summary>
+ <param name="section">Full <see cref="T:IniFileIO.IniFile.Section"/> to be added.</param>
+ <returns>Whether or not the <paramref name="section"/> was successfully added.</returns>
+</member>
+<member name="M:IniFileIO.IniFile.DeleteKey(System.String,System.String)">
+ <summary>
+ Deletes the key with the name <paramref name="keyName"/> from the specified <paramref name="sectionName"/>.
+ </summary>
+ <param name="sectionName">Parent section to search.</param>
+ <param name="keyName">Name of the target key to delete.</param>
+ <returns>Whether or not the <paramref name="keyName"/> was deleted.</returns>
+ <remarks>In the event of multiple <paramref name="keyName"/>s within <paramref name="sectionName"/>, only the first occurrance is deleted.</remarks>
+</member>
+<member name="M:IniFileIO.IniFile.DeleteSection(System.String)">
+ <summary>
+ Deletes the section with the specified <paramref name="name"/>.
+ </summary>
+ <param name="name">Name of the target section to delete.</param>
+ <returns>Whether or not the section was deleted.</returns>
+ <remarks>In the event of multiple sections matching <paramref name="name"/>, only the first occurrance is deleted.</remarks>
+</member>
+<member name="M:IniFileIO.IniFile.DeleteSectionKeys(System.String)">
+ <summary>
+ Deletes all keys from the section with the specified <paramref name="name"/>.
+ </summary>
+ <param name="name">Name of the target section to delete the keys from.</param>
+ <returns>Whether or not the keys were deleted.</returns>
+ <remarks>In the event of multiple sections matching <paramref name="name"/>, only the keys from the first occurrance are deleted.</remarks>
+</member>
+<member name="M:IniFileIO.IniFile.SetKeyData(System.String,System.String,System.String,System.Int32,System.String,System.Boolean)">
+ <summary>
+ Sets the data of the key with <paramref name="keyName"/> within the specified <see cref="T:IniFileIO.IniFile.Section"/>.
+ Optionally, this method will create the section and/or key as needed.
+ </summary>
+ <param name="sectionName">Parent section to search.</param>
+ <param name="keyName">Name of the target key.</param>
+ <param name="value">Value to set.</param>
+ <param name="order">Order to set.</param>
+ <param name="comments">Comments to set.</param>
+ <param name="createIfNotExist">When True, if the target path of <paramref name="sectionName"/> and/or <paramref name="keyName"/> does not exist, it is created as needed.
+ When False, if the path does not exist, no action is taken.</param>
+ <returns>Whether the specified key was updated or created.
+ False should only be returned in calls where <paramref name="createIfNotExist"/> is set to False.</returns>
+ <remarks>In the event of multiple <paramref name="keyName"/>s within <paramref name="sectionName"/>, only the first occurrance is updated.</remarks>
+</member>
+<member name="M:IniFileIO.IniFile.SetSectionData(System.String,System.Int32,System.String,System.Collections.Generic.List{IniFileIO.IniFile.Key},System.Boolean)">
+ <summary>
+ Sets the comments of the section with the specified <paramref name="name"/>.
+ </summary>
+ <param name="name">Name of the target section.</param>
+ <param name="comments">Comments to set.</param>
+ <param name="order">Order to set.</param>
+ <param name="keys">Collection of full keys to set.</param>
+ <param name="createIfNotExist">When True, if the target section with the specified <paramref name="name"/> does not exist, it is created.
+ When False, if the section does not exist, no action is taken.</param>
+ <returns>Whether the specified section was updated or created.
+ False should only be returned in calls where <paramref name="createIfNotExist"/> is set to False.</returns>
+ <remarks>In the event of multiple sections with the same <paramref name="name"/>, only the first occurrance is updated.</remarks>
+</member>
+<member name="M:IniFileIO.IniFile.CreateFromString(System.String,System.String)">
+ <summary>
+ Creates a new object from the provided text <paramref name="contents"/>.
+ </summary>
+ <param name="contents">Ini text.</param>
+ <param name="fileName">Destination file for the new object. If this file exists, it will be overwritten.
+ If a value is not provided the returned object will not contain a value in <see cref="P:IniFileIO.IniFile.FileName"/> property (it can be set if needed, however).</param>
+ <returns>New object with the <paramref name="contents"/> assigned.</returns>
+ <remarks></remarks>
+</member>
+<member name="M:IniFileIO.IniFile.GetKeyValue(IniFileIO.IniFile.Section,System.String,System.String)">
+ <summary>
+ Gets the value of <paramref name="keyName"/> in the specified <paramref name="section"/>.
+ </summary>
+ <param name="section">Section to search.</param>
+ <param name="keyName">Name of the target key.</param>
+ <param name="defaultValue">The value returned in the event the key does not exist.</param>
+ <returns>Value of the first occurance of the <paramref name="keyName"/>s within <paramref name="section"/>.</returns>
+ <remarks>In the event of multiple <paramref name="keyName"/>s within <paramref name="section"/>, only the value of the first occurrance is returned.</remarks>
+</member>
+<member name="M:IniFileIO.IniFile.GetCommentOutput(System.String)">
+ <summary>
+ Gets the comment output for writing to a file.
+ </summary>
+ <param name="comment">The comment for any component.</param>
+ <returns></returns>
+</member>
+<member name="M:IniFileIO.IniFile.GetKeyOutput(IniFileIO.IniFile.Key)">
+ <summary>
+ Gets the <see cref="T:IniFileIO.IniFile.Key"/> output which is written to the ini file.
+ </summary>
+ <param name="key">The key to get output for.</param>
+ <returns>Format:
+ {Comment}
+ {Name}={Value}
+ </returns>
+</member>
+<member name="M:IniFileIO.IniFile.GetSectionOutput(IniFileIO.IniFile.Section,System.Boolean)">
+ <summary>
+ Gets the <see cref="T:IniFileIO.IniFile.Section"/> output which is written to the ini file.
+ </summary>
+ <param name="section">The section to get output for.</param>
+ <param name="preserveOrders">Whether or not the ordering of the keys should be honored.
+ For large sections, this may incur a peformance hit.</param>
+ <returns>Format:
+ {Comment}
+ [{Section}]
+ {Key1}
+ {...}
+ {KeyN}
+ {carriage return}
+ {carriage return}
+ </returns>
+ <remarks>Using LINQ would make the key sorting easier.</remarks>
+</member>
+<member name="M:IniFileIO.IniFile.MakeSection(System.String,System.String,System.Int32,System.Collections.Generic.List{IniFileIO.IniFile.Key})">
+ <summary>
+ Creates a new unattached <see cref="T:IniFileIO.IniFile.Section"/>.
+ </summary>
+ <param name="name">Name of the section.</param>
+ <param name="comments">Comments for the section.</param>
+ <param name="order">Sequential placement with respect to existing sections.</param>
+ <param name="keys">Keys for the section.</param>
+ <returns>New section with the specified properties assigned.</returns>
+ <remarks></remarks>
+</member>
+<member name="M:IniFileIO.IniFile.MakeKey(System.String,System.String,System.String,System.Int32)">
+ <summary>
+ Creates a new unattached <see cref="T:IniFileIO.IniFile.Key"/>.
+ </summary>
+ <param name="name">Name of the key.</param>
+ <param name="value">Value assigned to the key.</param>
+ <param name="comments">Comments for the key.</param>
+ <param name="order">Sequential placement with respect to existing keys.</param>
+ <returns>New key with the specified properties assigned.</returns>
+ <remarks></remarks>
+</member>
+<member name="M:IniFileIO.IniFile.KeyHasData(IniFileIO.IniFile.Key)">
+ <summary>
+ Returns whether or not the supplied <paramref name="key"/> contains data.
+ </summary>
+ <param name="key">Key to evaluate.</param>
+ <returns>True when the <paramref name="key"/> has a value for the <see cref="F:IniFileIO.IniFile.Key.Name"/> property, otherwise False.</returns>
+</member>
+<member name="M:IniFileIO.IniFile.SectionHasData(IniFileIO.IniFile.Section)">
+ <summary>
+ Returns whether or not the supplied <paramref name="section"/> contains data.
+ </summary>
+ <param name="section">Key to evaluate.</param>
+ <returns><c>True</c> when the <paramref name="section"/> has a value for one of the following:
+ <list type="bullet">
+ <item><see cref="F:IniFileIO.IniFile.Section.Name"/></item>
+ <item><see cref="F:IniFileIO.IniFile.Section.Keys"/> (1 or more)</item>
+ <item><see cref="F:IniFileIO.IniFile.Section.Comments"/></item>
+ </list>
+ Otherwise <c>False</c>.</returns>
+</member>
+<member name="M:IniFileIO.IniFile.SectionToDictionary(IniFileIO.IniFile.Section)">
+ <summary>
+ Returns a dictionary lookup for the provided <paramref name="section"/>'s <see cref="F:IniFileIO.IniFile.Section.Keys"/>.
+ <para>This method does not support multiple <see cref="T:IniFileIO.IniFile.Key"/> with the same <see cref="F:IniFileIO.IniFile.Key.Name"/> value.
+ An exception is thrown when this is attempted.</para>
+ </summary>
+ <param name="section">Section to build to the dictionary from.</param>
+ <returns>Dictionary with each <see cref="F:IniFileIO.IniFile.Section.Keys"/>' <see cref="F:IniFileIO.IniFile.Key.Name"/> as the <c>Key</c> and <see cref="F:IniFileIO.IniFile.Key.Value"/> as the <c>Value</c>.</returns>
+ <exception cref="T:System.ArgumentException">Thrown when a duplicate key is attempted to be added to the dictionary.</exception>
+ <seealso cref="M:IniFileIO.IniFile.SectionToKeyValuePair(IniFileIO.IniFile.Section)"/>
+</member>
+<member name="M:IniFileIO.IniFile.SectionToKeyValuePair(IniFileIO.IniFile.Section)">
+ <summary>
+ Returns an array of key value pairs representing each <see cref="T:IniFileIO.IniFile.Key"/> in the provided <paramref name="section"/>.
+ <para>This method supports multiple <see cref="T:IniFileIO.IniFile.Key"/>s with the same <see cref="F:IniFileIO.IniFile.Key.Name"/> value.</para>
+ </summary>
+ <param name="section">Section to build to the key value pairs from.</param>
+ <returns>Key value pair array with each <see cref="F:IniFileIO.IniFile.Section.Keys"/>'s <see cref="F:IniFileIO.IniFile.Key.Name"/> as the <c>Key</c> and <see cref="F:IniFileIO.IniFile.Key.Value"/> as the <c>Value</c>.</returns>
+ <seealso cref="M:IniFileIO.IniFile.SectionToDictionary(IniFileIO.IniFile.Section)"/>
+</member>
+</members>
+</doc>
