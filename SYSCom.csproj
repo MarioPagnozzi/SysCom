@@ -170,6 +170,19 @@
     <Compile Include="Abertura.Designer.cs">
       <DependentUpon>Abertura.cs</DependentUpon>
     </Compile>
+    <Compile Include="Cadastro.cs" />
+    <Compile Include="CarregamentoSistema.cs" />
+    <Compile Include="ConfigIni.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ConfigIni.Designer.cs">
+      <DependentUpon>ConfigIni.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DataBase\ConexoesModulos.cs" />
+    <Compile Include="DataBase\DBInicializaModulos.cs" />
+    <Compile Include="DataBase\IConexoesModulos.cs" />
+    <Compile Include="DataBase\SysCom_DBContext.cs" />
+    <Compile Include="DataBase\SysCom_DBContextFactory.cs" />
     <Compile Include="frm_Inicial.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -188,12 +201,10 @@
     <Compile Include="frm_principal_mod2.Designer.cs">
       <DependentUpon>frm_principal_mod2.cs</DependentUpon>
     </Compile>
-    <Compile Include="Program.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Properties\AssemblyInfo.cs">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Include="ICadastro.cs" />
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -205,14 +216,11 @@
     <Compile Include="WaitForm1.Designer.cs">
       <DependentUpon>WaitForm1.cs</DependentUpon>
     </Compile>
-    <Compile Include="WaitForm2.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="WaitForm2.Designer.cs">
-      <DependentUpon>WaitForm2.cs</DependentUpon>
-    </Compile>
     <EmbeddedResource Include="Abertura.resx">
       <DependentUpon>Abertura.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ConfigIni.resx">
+      <DependentUpon>ConfigIni.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frm_Inicial.resx">
       <DependentUpon>frm_Inicial.cs</DependentUpon>
@@ -231,9 +239,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="WaitForm1.resx">
       <DependentUpon>WaitForm1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="WaitForm2.resx">
-      <DependentUpon>WaitForm2.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
@@ -300,8 +305,45 @@
     <None Include="Resources\outlook.png" />
     <None Include="Resources\Bitmap.png" />
     <None Include="Resources\SyscomSplash.png" />
+    <None Include="Resources\Splash2.png" />
+    <None Include="Resources\photoshopsplash.png" />
+    <None Include="Resources\splash.png" />
+    <None Include="Resources\splash1.png" />
+    <None Include="Resources\teste.png" />
+    <None Include="Resources\teste1.png" />
+    <None Include="Resources\teste2.png" />
+    <None Include="Resources\Sem título-2.png" />
+    <None Include="Resources\teste3.png" />
+    <None Include="Resources\Sem título-3.png" />
+    <None Include="Resources\Sem título-21.png" />
+    <None Include="Resources\SyscomSplash1.png" />
+    <None Include="Resources\teste4.png" />
+    <None Include="Resources\Sem título-22.png" />
+    <None Include="Resources\Sem título-23.png" />
+    <None Include="Resources\SyscomSplash2.png" />
+    <None Include="Resources\Sem título-4.bmp" />
+    <None Include="Resources\Sem título-4.jpg" />
+    <None Include="Resources\Sem título-41.bmp" />
+    <None Include="Resources\cancel.png" />
+    <None Include="Resources\Symbol-Check.png" />
+    <None Include="Resources\Misc_icon_clean_2490.jpg.png" />
+    <None Include="Resources\symbol_check.gif" />
     <Content Include="sysCom2.ico" />
     <Content Include="Updates.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Cadastros\Cadastros.csproj">
+      <Project>{d93fcaf0-8d91-4c9f-8255-e271ff9ec983}</Project>
+      <Name>Cadastros</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DLLDadosSyscom\DLLDadosSyscom.csproj">
+      <Project>{ae5dc6ba-ba62-46d9-94e5-0564b11f4f42}</Project>
+      <Name>DLLDadosSyscom</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\funcoesGlobal\funcoesGlobal.csproj">
+      <Project>{a72fb0bd-68a1-4dcf-b548-1dde277c02c2}</Project>
+      <Name>funcoesGlobal</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
